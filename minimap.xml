@@ -1,0 +1,214 @@
+<krpano>
+    <include url="plugins/minimap.xml"/>
+    <!-- <include url="plugins/dragg/dragglayer.xml"/> -->
+
+
+    <!-- <action name="draglayer">
+		copy(drag_currentx, x);
+		copy(drag_currenty, y);
+		copy(drag_stagex, mouse.stagex);
+		copy(drag_stagey, mouse.stagey);
+		indexoftxt(align_contains_right, get(align), 'right');
+		indexoftxt(align_contains_bottom, get(align), 'bottom');
+		calc(drag_align_x, align_contains_right GE 0 ? -1 : +1);
+		calc(drag_align_y, align_contains_bottom GE 0 ? -1 : +1);
+		asyncloop(pressed,
+			calc(x, drag_currentx + (mouse.stagex - drag_stagex)*drag_align_x);
+			calc(y, drag_currenty + (mouse.stagey - drag_stagey)*drag_align_y);
+
+            set(x_html,null);
+            calc(x_html, 'layer name="' + name + '" x="' + x + '" y="' + y + '"');
+             showlog();
+            trace(x_html);
+		  );
+         
+	</action> -->
+
+
+	<!-- a special action for dragging a layer only vertically within its parent layer -->
+	<action name="draglayer_vertically_within_parent">
+		copy(drag_currenty, y);
+		copy(drag_stagey, mouse.stagey);
+		calc(y_min, layer[get(parent)].pixelheight - pixelheight);
+		if(y_min LT 0,
+			asyncloop(pressed,
+				calc(y, drag_currenty + (mouse.stagey - drag_stagey));
+				clamp(y, get(y_min), 0);
+			  );
+		  );
+        
+	</action>
+
+   <layer name="tab_full_minimap" zorder="20"  type="container"  align="center" >
+
+       
+   </layer>
+   <action name="showmap">
+   set(layer[map2].visible, true);
+   </action>
+ <action name="hidemap">
+    set( layer[map2].visible, false);
+ </action>
+   <action name="openmapfull" type="Javascript">
+ 
+   <![CDATA[
+    var showmap = document.getElementById("minimap");
+    
+     showmap.style.display = "block";
+     
+   ]]>
+   <!-- set( layer[mapfull].visible, true);
+   set( layer[map2].visible, false); -->
+    <!-- set(x,get(sidemenu_settings.minimap_full_x_open));
+    set(y,get(sidemenu_settings.minimap_full_y_open));
+     set(width,get(sidemenu_settings.minimap_full_width));
+    set(height,get(sidemenu_settings.minimap_full_height));
+    set(layer[map2].parent,tab_full_minimap); -->
+
+   </action>
+    <layer name="tab_minimap" zorder="20" keep="true" type="container" bgcolor="0x000000" bgalpha="0.0" align="topleft"  css="calc:sidemenu_settings.minimap_css">
+        <!-- <layer  
+            name="mapfull"
+            url="assets/img/Map_DinhVi.jpg"
+            align="center" parent="tab_full_minimap"
+            handcursor="false"
+            ondown="draglayer()"
+            onloaded="
+                    set(x,get(sidemenu_settings.minimap_full_x_open));
+                    set(y,get(sidemenu_settings.minimap_full_y_open));
+                    set(width,get(sidemenu_settings.minimap_full_width));
+                    set(height,get(sidemenu_settings.minimap_full_height));
+                     set(scale,get(sidemenu_settings.scale_full_minimap));" >
+
+            <layer name="radar_full" type="container" align="righttop" width="100%" height="100%" maskchildren="true">
+                    <layer
+                        name="radar2"
+                        visible="true"
+                        parent="mapfull"
+                        url="plugins/radar.swf"
+                        alturl="plugins/radar.js"
+                        align="center"
+                        edge="center"
+                        zorder="1"
+                        scale="0.7"
+                        fillcolor="0x000000"
+                        fillalpha="0.3"
+                        linecolor="0xFF0000"
+                        linewidth="0"
+                        linealpha="0"
+                        headingoffset="0"
+                    />
+
+                    <layer name="pin0" url="assets/img/radar2.png" align="center"  parent="mapfull" edge="center"   x="-14" y="283"   ondown="draglayer()" zorder="" onclick="activatespot2(pin0,0); add_spin(scene_0002_equi,everpano3d_0);" />
+                    <layer name="pin1" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center" x="108" y="142" ondown="draglayer()" zorder="2" onclick="activatespot2(pin1,0); add_spin(scene_0008_equi,everpano3d_1);" />
+                    <layer name="pin2" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center" x="2" y="143" ondown="draglayer()" zorder="2" onclick="activatespot2(pin2,0); add_spin(scene_1_9-KhueVanCac-Ngoaivao,everpano3d_2);" />
+                    <layer name="pin3" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center"  x="3" y="106" ondown="draglayer()" zorder="2" onclick="activatespot2(pin3,0); add_spin(scene_1_8_KhueVanCac,everpano3d_3);" />
+                    <layer name="pin4" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center"  x="-29" y="16" ondown="draglayer()" zorder="2" onclick="activatespot2(pin4,0); add_spin(scene_2_10_NhaBiaTienSy,everpano3d_4);" />
+                    <layer name="pin5" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center" x="28" y="-55" ondown="draglayer()" zorder="2" onclick="activatespot2(pin5,0); add_spin(scene_1_7_KhueVanCac+NhaBia,everpano3d_5);" />
+                    <layer name="pin6" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center" x="38" y="-136" ondown="draglayer()" zorder="2" onclick="activatespot2(pin6,0); add_spin(scene_2_1_NhaThaiHoc-San,everpano3d_6);" />
+                    <layer name="pin7" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center"  x="43" y="-167" ondown="draglayer()" zorder="2" onclick="activatespot2(pin7,0); add_spin(scene_2_2_NhaThaiHoc,everpano3d_7);" />
+                    <layer name="pin8" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center" x="43" y="-191" ondown="draglayer()" zorder="2" onclick="activatespot2(pin8,0); add_spin(scene_3_1_TuongChuVanAn_T1,everpano3d_8);" />
+                    <layer name="pin9" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center" x="79" y="-192" ondown="draglayer()" zorder="2" onclick="activatespot2(pin9,0); add_spin(scene_3_2_Cauthangdanhuong_T1,everpano3d_9);" />
+                    <layer name="pin10" url="assets/img/radar2.png" align="center" parent="mapfull" edge="center" x="56" y="-210" ondown="draglayer()" zorder="2" onclick="activatespot2(pin10,0); add_spin(scene_3_3_Tuong_LyThanhTong_T2,everpano3d_10);" />
+
+
+            </layer>
+        </layer> -->
+
+          <layer
+                name="map2"
+                url="assets/img/Map_DinhVi.jpg"
+                align="left" parent="tab_minimap"
+                edge="rightcenter" zorder="0"
+                handcursor="false"
+                css="calc:sidemenu_settings.minimap_css"
+                ondown="draglayer()"
+                onloaded="
+                    set(x,get(sidemenu_settings.minimap_x_open));
+                    set(y,get(sidemenu_settings.minimap_y_open));
+                    set(width,get(sidemenu_settings.minimap_width));
+                    set(height,get(sidemenu_settings.minimap_height));
+                    set(scale,get(sidemenu_settings.scale_minimap));"
+                onclick="openmapfull();hidemap()"
+            >
+            
+
+            <layer name="radarmask2" type="container" align="righttop" width="100%" height="100%" maskchildren="true">
+                    <layer
+                        name="radar2"
+                        visible="true"
+                        parent="map2"
+                        url="plugins/radar.swf"
+                        alturl="plugins/radar.js"
+                        align="center"
+                        edge="center"
+                        zorder="1"
+                        scale="0.4"
+                        fillcolor="0x000000"
+                        fillalpha="0.3"
+                        linecolor="0xFF0000"
+                        linewidth="0"
+                        linealpha="0"
+                        headingoffset="0"
+                    />
+
+                    <layer name="pin0" url="assets/img/mappoint.png" align="center" parent="map2" edge="center"  x="-10" y="111" ondown="draglayer()" zorder="" onclick="activatespot2(pin0,0); add_spin(scene_0002_equi,everpano3d_0);" />
+                    <layer name="pin1" url="assets/img/mappoint.png" align="center" parent="map2" edge="center" x="55" y="61" ondown="draglayer()" zorder="2" onclick="activatespot2(pin1,0); add_spin(scene_0008_equi,everpano3d_1);" />
+                    <layer name="pin2" url="assets/img/mappoint.png" align="center" parent="map2" edge="center" x="1" y="58" ondown="draglayer()" zorder="2" onclick="activatespot2(pin2,0); add_spin(scene_1_9-KhueVanCac-Ngoaivao,everpano3d_2);" />
+                    <layer name="pin3" url="assets/img/mappoint.png" align="center" parent="map2" edge="center" x="1" y="41" ondown="draglayer()" zorder="2" onclick="activatespot2(pin3,0); add_spin(scene_1_8_KhueVanCac,everpano3d_3);" />
+                    <layer name="pin4" url="assets/img/mappoint.png" align="center" parent="map2" edge="center"  x="-14" y="8" ondown="draglayer()" zorder="2" onclick="activatespot2(pin4,0); add_spin(scene_2_10_NhaBiaTienSy,everpano3d_4);" />
+                    <layer name="pin5" url="assets/img/mappoint.png" align="center" parent="map2" edge="center" x="16" y="-25" ondown="draglayer()" zorder="2" onclick="activatespot2(pin5,0); add_spin(scene_1_7_KhueVanCac+NhaBia,everpano3d_5);" />
+                    <layer name="pin6" url="assets/img/mappoint.png" align="center" parent="map2" edge="center" x="20" y="-52" ondown="draglayer()" zorder="2" onclick="activatespot2(pin6,0); add_spin(scene_2_1_NhaThaiHoc-San,everpano3d_6);" />
+                    <layer name="pin7" url="assets/img/mappoint.png" align="center" parent="map2" edge="center"  x="20" y="-65" ondown="draglayer()" zorder="2" onclick="activatespot2(pin7,0); add_spin(scene_2_2_NhaThaiHoc,everpano3d_7);" />
+                    <layer name="pin8" url="assets/img/mappoint.png" align="center" parent="map2" edge="center" x="25" y="-75" ondown="draglayer()" zorder="2" onclick="activatespot2(pin8,0); add_spin(scene_3_1_TuongChuVanAn_T1,everpano3d_8);" />
+                    <layer name="pin9" url="assets/img/mappoint.png" align="center" parent="map2" edge="center" x="40" y="-73" ondown="draglayer()" zorder="2" onclick="activatespot2(pin9,0); add_spin(scene_3_2_Cauthangdanhuong_T1,everpano3d_9);" />
+                    <layer name="pin10" url="assets/img/mappoint.png" align="center" parent="map2" edge="center" x="30" y="-84" ondown="draglayer()" zorder="2" onclick="activatespot2(pin10,0); add_spin(scene_3_3_Tuong_LyThanhTong_T2,everpano3d_10);" />
+
+
+            </layer>
+        </layer>
+
+           <!-- <layer
+                name="map_mb"
+                url="assets/img/Map_DinhVi.jpg"
+                align="left" parent="tab_minimap"
+                edge="rightcenter" zorder="0"
+                handcursor="false"
+                css="calc:sidemenu_settings.minimap_css"
+                onloaded="
+                    set(x,get(sidemenu_settings.minimap_x_open));
+                    set(y,get(sidemenu_settings.mb_y_open));
+                    set(width,get(sidemenu_settings.minimap_width));
+                    set(height,get(sidemenu_settings.minimap_height));
+                    set(scale,get(sidemenu_settings.scale_minimap));"
+            ></layer> -->
+          
+
+            <layer name="btn_7_close" url="assets/img/minimap.png" 
+            align="topleft" edge="topleft" zorder="20" visible="true"
+             onclick="close_tabmenu(map2,get(sidemenu_settings.minimap_x_open),
+             get(sidemenu_settings.minimap_height_close),btn_7_open,btn_7_close);
+             close_tabmenu(map_mb,get(sidemenu_settings.minimap_x_open),
+             get(sidemenu_settings.minimap_height_close),btn_7_open,btn_7_close)" 
+
+
+             onloaded="set(y,get(sidemenu_settings.tab_minimap_y)); 
+             set(x,get(sidemenu_settings.tab_minimap_x));" />
+
+            <layer name="btn_7_open"  url="assets/img/minimap.png"
+             visible="false"  align="topleft" edge="topleft"  zorder="20" 
+            onclick="open_tabmenu(map2,get(sidemenu_settings.minimap_x_open),
+            get(sidemenu_settings.minimap_height_close),btn_7_open,btn_7_close);
+             close_tabmenu(info_canho,get(sidemenu_settings.info_x),
+             get(sidemenu_settings.info_x_close),btn_info_open,btn_info_close);
+             
+             open_tabmenu(map_mb,get(sidemenu_settings.minimap_x_open),
+            get(sidemenu_settings.minimap_height_close),btn_7_open,btn_7_close);
+             close_tabmenu(info_canho,get(sidemenu_settings.info_x),
+             get(sidemenu_settings.info_x_close),btn_info_open,btn_info_close);
+             " 
+             onloaded="set(y,get(sidemenu_settings.tab_minimap_y)); set(x,get(sidemenu_settings.tab_minimap_x));" />
+    </layer>
+         
+
+</krpano>

@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Con Sáng Tạo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/responsive.css">
+	<link rel="stylesheet" href="assets/css/jquery.pan.css" type="text/css">
+
+    <style>
+       
+
+    </style>
+	<style>
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+	</style>
+</head>
+<body>
+
+<script src="tour.js"></script>
+
+<div id="pano" style="width:100%;height:100%;">
+	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;"><td><div style="text-align:center;">ERROR:<br/><br/>Javascript not activated<br/><br/></div></td></tr></table></noscript>
+	<!-- <script>
+		embedpano({swf:"tour.swf", xml:"tour.xml", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});
+	</script> -->
+	<div class="logo_project">
+		<img src="assets/img/logo_vanmieu.png" alt="">
+	</div>
+	<!-- minimap -->
+		<div class="panWrapper" id="minimap" style="display: none;">
+			<a class="controls in"></a>
+			<a class="controls out"></a>
+			<img class="i image_pan mx-auto d-block center-block"
+				style="position: absolute; width: auto; left: -13px; top: 114.5px;"
+				src="assets/img/Map_DinhVi.jpg">
+		</div>
+	
+	
+	<div class="thumblist">
+		<div class="icon_thumbs" id="icon_thumbs_top">
+			<i class="fas fa-chevron-down"></i>
+		</div>
+		<div class="icon_thumbs_bottom">
+			<i class="fas fa-chevron-up"></i>
+		</div>
+
+		<div class="list-thumbs " id=" thumbs">
+			<div class="item-thumbs active " linkscene="scene_0002_equi">
+				<img src="panos/0002_equi.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb ">
+					<span class="title-thumb">Toàn Cảnh Văn Miếu - Quốc Tử Giám</span>
+				</div>
+				
+			</div>
+			<div class="item-thumbs"  linkscene="scene_0008_equi" >
+				<img src="panos/0008_equi.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Toàn Cảnh Văn Miếu - Quốc Tử Giám</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_1_9-KhueVanCac-Ngoaivao" >
+				<img src="panos/1_9-KhueVanCac-Ngoaivao.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Cổng vào Khuê Văn Các</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_1_8_KhueVanCac">
+				<img src="panos/1_8_KhueVanCac.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Khuê Văn Các</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_2_10_NhaBiaTienSy">
+				<img src="panos/2_10_NhaBiaTienSy.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Nhà Bia Tiến Sỹ</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_1_7_KhueVanCac+NhaBia">
+				<img src="panos/1_7_KhueVanCac+NhaBia.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Khuê Văn Các Và Nhà Bia</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_2_1_NhaThaiHoc-San">
+				<img src="panos/2_1_NhaThaiHoc-San.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Sân Nhà Thái Học</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_2_2_NhaThaiHoc">
+				<img src="panos/2_2_NhaThaiHoc.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Nhà Thái Học</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_3_1_TuongChuVanAn_T1">
+				<img src="panos/3_1_TuongChuVanAn_T1.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Tượng Chu Văn An</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_3_2_Cauthangdanhuong_T1">
+				<img src="panos/3_2_Cauthangdanhuong_T1.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Cầu thang hướng Dẫn</span>
+				</div>
+			</div>
+			<div class="item-thumbs" linkscene="scene_3_3_Tuong_LyThanhTong_T2">
+				<img src="panos/3_3_Tuong_LyThanhTong_T2.tiles/thumb.jpg" class="img-thumb" alt="">
+				<div class="content-thumb">
+					<span class="title-thumb">Tượng Lý Thánh Tông</span>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	
+	<ul class="list_icon">
+		<ul class="list_menu">
+			<ul class="menu">
+				<li class="item_icon" id="icon_sharelink" >
+					<!-- <i class="fas fa-share-alt"></i> -->
+					<img class="img-icon" src="assets/img/icon_link_white.png"  alt="">
+				
+				</li>
+				<li class="item_icon" id="icon_video">
+					
+					<img class="img-icon" src="assets/img/icon_image.png"  alt="">
+				
+				</li>
+				<li class="item_icon" id="icon_mute">
+					
+						<img class="img-icon" src="assets/img/icon_volum.png" alt="">
+					
+				</li>
+				<li class="item_icon" id="icon_unmute">
+					
+						<img class="img-icon" src="assets/img/icon_volum_tat.png" alt="">
+					
+				</li>
+				<li class="item_icon" id="icon_guide">
+					
+						<img class="img-icon" src="assets/img/icon_guide.png" alt="">
+					
+				</li>
+				<li class="item_icon" id="hotspot_Close">
+					
+					<img class="img-icon" src="assets/img/hotspot_Close.png" alt="">
+				
+				</li>
+				<li class="item_icon" id="hotspot_open">
+					
+					<img class="img-icon" src="assets/img/hotspot_open.png" alt="">
+				
+				</li>
+				<li class="item_icon" id="icon_fullscreen" onclick="toggleFullscreen()">
+					
+					<img class="img-icon" src="assets/img/icon_full_white.png" alt="">
+				
+				</li>
+				<li class="item_icon" id="icon_VR" >
+					
+					<img class="img-icon" src="assets/img/icon_VR.png" alt="">
+				
+				</li>
+			</ul>
+			
+		</ul>
+		
+		<li class="item_icon" id="icon_menu" >
+			<img class="img-icon" src="assets/img/icon_menu.png"  alt="">
+		</li>
+	</ul>
+
+	
+	<div class="menu_icon">
+		<div class="guide">
+			<img src="assets/img/guide2.png" alt="">
+			<span class="close">X</span>
+		</div>
+		<div class="video">
+			<iframe src="https://www.youtube.com/embed/OoQ65IxUVXg?autoplay=1&mute=0&enablejsapi=1&loop=1&playlist=OoQ65IxUVXg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+			<span class="close">X</span>
+		</div>
+		<div class="form" id="form">
+			<div class="container">
+				<div class="form-project">
+					<h1>Thông Tin Dự Án</h1>
+					<div class="content-form">
+						<span> Văn Miếu Quốc Tử Giám</span>
+					</div>
+					
+					<span class="close close-form">X</span>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<div class="show_icon">
+			
+			<ul class="list_sub">
+				<ul class="list-icon-sub">
+					<li class="item_icon" id="icon_form">
+						<img src="assets/img/icon_from.png" class="img-icon" alt="">
+					</li>
+					<!-- <li class="item_icon" id="icon_back" onclick="changepano()">
+						<img src="assets/img/back.png" class="img-icon" alt="">
+					</li> -->
+				</ul>
+				
+				<!-- <div class="sub-title">
+					<h2>Toàn Cảnh Văn Miếu Quốc Tử Giám</h2>
+					<span>Văn Miếu Quốc Tử Giám</span>
+				</div> -->
+				
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.js "
+integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin=" anonymous "></script>
+<script src="assets/js/jquery.pan.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="assets/js/responsive.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+	var slideIndex = 1;
+	showDivs(slideIndex);
+
+	function plusDivs(n) {
+		showDivs(slideIndex += n);
+	}
+
+	function showDivs(n) {
+		var i;
+		var x = document.getElementsByClassName("mySlides");
+		if (n > x.length) {
+			slideIndex = 1
+		}
+		if (n < 1) {
+			slideIndex = x.length
+		}
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
+		}
+		x[slideIndex - 1].style.display = "block";
+	}
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".pan").pan();
+	})
+</script>
+
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

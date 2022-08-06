@@ -1,0 +1,42 @@
+<krpano>
+
+	<layer name="option_layer" type="container" keep="true" url="%SWFPATH%/plugins/textfield.swf" visible="true" align="bottomright" width="100px" height="auto" background="true" bgcolor="0x07414c" bgalpha="0.6" x="15" y="15" onloaded="check_number_scene();resize();">
+		<layer name="option_day"  keep="true" url="%SWFPATH%/plugins/textfield.swf" visible="true" bgcolor="0xAEAA06" bgalpha="0.7" align="bottomright" width="100%" y="90" css="data:css_text" html="Ngày" onclick="active_option(option_day, scene_s1); remove_active(option_night, option_present)"/>
+		<layer name="option_night" keep="true" url="%SWFPATH%/plugins/textfield.swf" visible="true" bgcolor="0x07414c" bgalpha="0.7" align="bottomright" width="100%" y="60" css="data:css_text" html="Đêm" onclick="active_option(option_night, scene_s2); remove_active(option_present, option_day)" />
+		<layer name="option_present" keep="true" url="%SWFPATH%/plugins/textfield.swf" visible="true" bgcolor="0x07414c" bgalpha="0.7" align="bottomright" width="100%" y="30" css="data:css_text" html="Hiện trạng" onclick="active_option(option_present, scene_s3); remove_active(option_night, option_day)"/>
+		<layer name="text_desc" keep="true" url="%SWFPATH%/plugins/textfield.swf" visible="true" bgcolor="0" bgalpha="0" align="bottomright" width="143%"  css="data:css_text" html="Hình ảnh minh họa" />
+	</layer>
+
+	<data name="css_text">
+		color: #FFFFFF;text-align: center; padding: 5px 10px; font-size:14px;
+	</data>
+
+	<action name="active_option">
+		set(layer[%1].bgcolor, 0xAEAA06);
+		set(atH,get(view.hlookat));
+		set(atV,get(view.vlookat));
+		loadscene("%2",null, MERGE);
+		lookat(get(atH),get(atV));
+	</action>
+
+	<action name="check_number_scene">
+		if (scene.count == 2, set(layer[option_present].visible, false); set(layer[text_desc].y, 30));
+		<!-- if (scene.count GT 3, set(layer[option_layer].visible, false)); -->
+		if (scene.count GT 3, set(layer[option_day].visible, false);set(layer[option_night].visible, false);set(layer[option_present].visible, false));
+	</action>
+
+
+	<action name="remove_active">
+		set(layer[%1].bgcolor, 0x07414c);
+		set(layer[%2].bgcolor, 0x07414c);
+	</action>
+
+	<events onresize="resize()"></events>
+
+	<action name="resize">
+		if (stagewidth GE 500, set(layer[option_layer].y, 15));
+		if (stagewidth LE 600, set(layer[option_layer].y, 85));
+		if (stagewidth LE 400 , set(layer[option_layer].y, 110));
+	</action>
+
+</krpano>

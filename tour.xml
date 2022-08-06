@@ -1,0 +1,391 @@
+﻿<krpano version="1.20.6" title="Virtual Tour">
+	    <include url="update.xml" />
+	 <include url="skin/vtourskin.xml" />
+    <include url="plugins/showtext.xml" />
+    <include url="option.xml" />
+	<!-- <include url="plugins/dragg/dragg.xml" /> -->
+	  <include url="plugins/popup_blur.xml" />
+	  <include url="plugins/minimap.xml" />
+	  <include url="minimap.xml" />
+	  <include url="plugins/youtube_player.xml" />
+	  
+	
+
+
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings
+       maps="true"
+       maps_type="google"
+       maps_bing_api_key=""
+       maps_google_api_key=""
+       maps_zoombuttons="false"
+       maps_loadonfirstuse="true"
+       gyro="true"
+       gyro_keeplookingdirection="false"
+       webvr="true"
+       webvr_keeplookingdirection="true"
+       webvr_prev_next_hotspots="true"
+       autotour="false"
+       littleplanetintro="false"
+       followmousecontrol="false"
+       title="true"
+       thumbs="true"
+       thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+       thumbs_opened="false"
+       thumbs_text="false"
+       thumbs_dragging="true"
+       thumbs_onhoverscrolling="false"
+       thumbs_scrollbuttons="false"
+       thumbs_scrollindicator="false"
+       thumbs_loop="false"
+       tooltips_buttons="false"
+       tooltips_thumbs="false"
+       tooltips_hotspots="false"
+       tooltips_mapspots="false"
+       deeplinking="false"
+       loadscene_flags="MERGE"
+       loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+       loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+       loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+       loadingtext="loading..."
+       layout_width="100%"
+       layout_maxwidth="814"
+       controlbar_width="-24"
+       controlbar_height="40"
+       controlbar_offset="20"
+       controlbar_offset_closed="-40"
+       controlbar_overlap.no-fractionalscaling="10"
+       controlbar_overlap.fractionalscaling="0"
+       design_skin_images="vtourskin.png"
+       design_bgcolor="0x2D3E50"
+       design_bgalpha="0.8"
+       design_bgborder="0"
+       design_bgroundedge="1"
+       design_bgshadow="0 4 10 0x000000 0.3"
+       design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+       design_thumbborder_padding="2"
+       design_thumbborder_bgroundedge="0"
+       design_text_css="color:#FFFFFF; font-family:Arial;"
+       design_text_shadow="1"
+	   state_hidden_hotspot = "false"
+
+    />
+
+    <skin_settings
+		devices="mobile|tablet"
+	/>
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+        playsound(bgsound, assets/bgsound.mp3, true, 0.8);
+		set(layer[mapfull].visible,false);
+		set( layer[map2].visible, false);
+	</action>
+
+	<!-- <action name="startup1" autorun="onstart">
+		if(scene_0008_equi === null OR !scene[get(scene_0008_equi)], copy(scene_0008_equi,scene[0].name); );
+		loadscene(get(scene_0008_equi), null, MERGE);
+		if(startactions !== null, startactions() );
+       
+	</action> -->
+	<!-- <control keycodesin="16,107" /> -->
+    <action name= "showHotSpot">
+		showtext([img src=%1 height=120px width=220px][/img][p style="color="#FF00FF""]%2[/p],Target);
+	</action>
+
+	<action name= "pause_sound">
+		pausesound(bgsound);
+	</action>
+	<action name="resumesound">
+		resumesound(bgsound);
+	</action>
+	<action name="play_sound">
+		playsound(bgsound, %1, true, 0.8);
+	</action>
+	
+    <action name= "showInfo">
+		showtext([p]%1[/p],Target);
+	</action>
+	
+	<action name="load_scene">
+	
+		loadscene(%1);
+	</action>
+	<action name= "back_scene">
+		set(index_scene,get(scene[get(xml.scene)].index));
+		sub(index_scene,index_scene,1);
+		set(backscene_name, get(scene[get(index_scene)].name));
+		loadscene(backscene_name);
+	</action>
+	
+	<!-- <plugin  name = "soundinterface"
+         url = "%SWFPATH%plugins/soundinterface.swf"
+         alturl = "%SWFPATH%plgins/soundinterface.js"
+         preload = "true"
+         rootpath = "%SWFPATH%assets/voice/Voice.mp3"
+         volume = "1.0"
+         mute = "false" 
+        />
+ -->
+ <action name="hideallhotspots">
+
+	for( set(i, 0), i LT hotspot.count, inc(i),
+	set( hotspot[get(i)].alpha, 0);
+	set( hotspot[get(i)].visible, false););
+
+ 	set(skin_settings.state_hidden_hotspot,true);
+	
+</action>
+<action name="showallhotspot">
+	for( set(i, 0), i LT hotspot.count, inc(i),
+	set( hotspot[get(i)].alpha, 1);
+	set( hotspot[get(i)].visible, true););
+	set(skin_settings.state_hidden_hotspot,false);
+	
+	
+</action>
+<action name="loadscene_with_name">
+	loadscene(%1, null, MERGE, ZOOMBLEND(1,2)); 
+</action>
+<control keycodesin="" keycodesout="" />
+
+	<scene name="scene_0002_equi" title="Tổng Thể 1" onstart="activatespot2(pin0,0);" thumburl="panos/0002_equi.tiles/thumb.jpg" lat="21.02735556" lng="105.83536944" heading="0.0">
+
+		<view hlookat="359.796" vlookat="34.925" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/0002_equi.tiles/preview.jpg" />
+
+		<image prealign="0|0.0|0">
+			<cube url="panos/0002_equi.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" tag="hs_show" style="skin_hotspotstyle_ani" ath="-0.655" atv="32.317" ondown="draghotspot();"  linkedscene="scene_1_9-khuevancac-ngoaivao" />
+		<hotspot name="spot2" tag="hs_show" style="skin_hotspotstyle_ani" ath="-0.407" atv="20.871" ondown="draghotspot();" linkedscene="scene_1_8_khuevancac" />
+		<hotspot name="spot3" tag="hs_show" style="skin_hotspotstyle_ani" ath="-8.628" atv="13.361" ondown="draghotspot();" linkedscene="scene_2_10_nhabiatiensy" />
+		<hotspot name="spot4" tag="hs_show" style="skin_hotspotstyle_ani" ath="-0.766" atv="14.101" ondown="draghotspot();" linkedscene="scene_1_7_khuevancac+nhabia" />
+		<hotspot name="spot5" tag="hs_show" style="skin_hotspotstyle_ani" ath="-0.249" atv="8.019" ondown="draghotspot();" linkedscene="scene_2_1_nhathaihoc-san" />
+		<hotspot name="spot6" tag="hs_show" style="hs_flycam" ath="59.690" atv="-9.902" linkedscene="scene_0008_equi" />
+		<!-- <hotspot name="spot8" style="skin_hotspotstyle" ath="21.117" atv="50.833"  /> -->
+		<hotspot name="info_toancanh" tag="hs_show"  style="skin_hotspotstyle_info" 	html="Youtube" ath="21.284" atv="50.285" ondown="draghotspot();"  
+		onhover="showInfo('Thông tin Toàn cảnh Văn Miếu')"  
+		 onclick=" youtubeplayer_open('OoQ65IxUVXg');"/>
+		
+		
+		
+		
+
+	</scene>
+
+	<scene name="scene_0008_equi" title="Tổng Thể 2" onstart="activatespot2(pin1,-40);" thumburl="panos/0008_equi.tiles/thumb.jpg" lat="21.02883333" lng="105.83654444" heading="0.0">
+
+		<view hlookat="-49.458" vlookat="22.795" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/0008_equi.tiles/preview.jpg" />
+
+		<image prealign="0|0.0|0">
+			<cube url="panos/0008_equi.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1"  tag="hs_show" style="skin_hotspotstyle_ani" ath="-77.065" atv="27.830" ondown="draghotspot();" linkedscene="scene_1_9-khuevancac-ngoaivao" />
+		<hotspot name="spot2" tag="hs_show"  style="skin_hotspotstyle_ani" ath="-46.718" atv="31.704" ondown="draghotspot();" linkedscene="scene_2_10_nhabiatiensy" />
+		<hotspot name="spot3" tag="hs_show"  style="skin_hotspotstyle_ani" ath="-31.580" atv="38.981" ondown="draghotspot();" linkedscene="scene_1_7_khuevancac+nhabia" />
+		<hotspot name="spot4" tag="hs_show"  style="skin_hotspotstyle_ani" ath="20.862" atv="25.153" ondown="draghotspot();" linkedscene="scene_2_1_nhathaihoc-san" />
+		<hotspot name="spot5" tag="hs_show"  style="skin_hotspotstyle_ani" ath="29.805" atv="19.805" ondown="draghotspot();" linkedscene="scene_2_2_nhathaihoc" />
+		<hotspot name="spot6" tag="hs_show"  style="hs_flycam" ath="-104.794" atv="-12.941" ondown="draghotspot();" linkedscene="scene_0002_equi" />
+		<!-- <hotspot name="spot8" style="skin_hotspotstyle" ath="-51.350" atv="41.696"  /> -->
+		<hotspot name="spot7" tag="hs_show"  style="skin_hotspotstyle_info" 
+			html="Youtube" ath="-52.938" atv="39.668"  ondown="draghotspot();" onhover="showInfo('Thông tin Tổng Thể 2')" 	
+			onclick=" youtubeplayer_open('jt0cr5OQCuU');"/>
+
+		
+		
+
+	</scene>
+	
+
+	<scene name="scene_1_9-KhueVanCac-Ngoaivao" title="Cổng vào Khuê Văn Các" onstart="activatespot2(pin2,-50);" thumburl="panos/1_9-KhueVanCac-Ngoaivao.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="58.400" vlookat="5.437" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/1_9-KhueVanCac-Ngoaivao.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/1_9-KhueVanCac-Ngoaivao.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="56.119" atv="0.942" ondown="draghotspot();" linkedscene="scene_1_8_khuevancac" />
+		<hotspot name="spot2" style="hs_flycam" ath="-113.476" atv="-59.975" ondown="draghotspot();" linkedscene="scene_0002_equi" />
+		<!-- <hotspot name="spot4" style="skin_hotspotstyle" ath="73.610" atv="-5.223" /> -->
+		<hotspot name="spot3" style="skin_hotspotstyle_info" ath="73.916" atv="-3.984" ondown="draghotspot();" 
+		 onhover="showInfo('Thông tin Khuê Văn Các')"
+			onclick=" youtubeplayer_open('map4N9P5oTU');"/>
+		
+
+	</scene>
+
+	<scene name="scene_1_8_KhueVanCac" title="Khuê Văn Các" onstart="activatespot2(pin3,190);" thumburl="panos/1_8_KhueVanCac.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-176.077" vlookat="-1.505" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/1_8_KhueVanCac.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/1_8_KhueVanCac.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="-2.696" atv="9.734" ondown="draghotspot();" linkedscene="scene_1_9-khuevancac-ngoaivao" />
+		<hotspot name="spot2" style="skin_hotspotstyle_ani" ath="177.514" atv="-3.057" ondown="draghotspot();" linkedscene="scene_1_7_khuevancac+nhabia" />
+		<hotspot name="spot3" style="skin_hotspotstyle_ani" ath="148.141" atv="-1.120" ondown="draghotspot();" linkedscene="scene_2_10_nhabiatiensy" />
+
+	</scene>
+
+	<scene name="scene_2_10_NhaBiaTienSy" title="Nhà Bia Tiến Sỹ" onstart="activatespot2(pin4,-30);" thumburl="panos/2_10_NhaBiaTienSy.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="128.285" vlookat="3.294" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2_10_NhaBiaTienSy.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/2_10_NhaBiaTienSy.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="172.923" atv="-5.407" ondown="draghotspot();" linkedscene="scene_1_8_khuevancac" />
+		<hotspot name="spot2" style="skin_hotspotstyle_ani" ath="82.966" atv="-3.884" ondown="draghotspot();" linkedscene="scene_1_7_khuevancac+nhabia" />
+		<hotspot name="spot3" style="hs_flycam" ath="130.624" atv="-44.671" ondown="draghotspot();" linkedscene="scene_0008_equi" />
+		<!-- <hotspot name="spot6" style="skin_hotspotstyle" ath="-175.097" atv="-8.563"  /> -->
+		<hotspot name="spot4_KhueVanCac" style="skin_hotspotstyle_info" ath="-175.038" atv="-7.466" ondown="draghotspot();" 
+		onhover="showInfo('Thông tin Khuê Văn Các')" 
+			onclick=" youtubeplayer_open('map4N9P5oTU');"/>
+		
+		<!-- <hotspot name="spot7" style="skin_hotspotstyle" ath="-85.556" atv="-0.794"  /> -->
+		<hotspot name="spot5_NhaBiaTienSy" style="skin_hotspotstyle_info" ath="-85.376" atv="0.344" ondown="draghotspot();"
+		 onhover="showInfo('Thông tin Nhà Bia Tiến Sỹ')"
+		  	onclick=" youtubeplayer_open('x-F7dw9V3Qw');"/>
+		
+		
+
+	</scene>
+
+	
+
+	<scene name="scene_1_7_KhueVanCac+NhaBia" title="Khuê Văn Các và Nhà Bia" onstart="activatespot2(pin5,-160);" thumburl="panos/1_7_KhueVanCac+NhaBia.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="176.942" vlookat="4.798" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/1_7_KhueVanCac+NhaBia.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/1_7_KhueVanCac+NhaBia.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="-4.923" atv="-4.258" ondown="draghotspot();" linkedscene="scene_1_8_khuevancac" />
+		<hotspot name="spot2" style="skin_hotspotstyle_ani" ath="54.187" atv="-5.343" ondown="draghotspot();" linkedscene="scene_2_10_nhabiatiensy" />
+		<hotspot name="spot3" style="skin_hotspotstyle_ani" ath="173.857" atv="0.513" ondown="draghotspot();" linkedscene="scene_2_1_nhathaihoc-san" />
+		<hotspot name="spot4" style="hs_flycam" ath="5.228" atv="-41.438" ondown="draghotspot();" linkedscene="scene_0002_equi" />
+		
+		<!-- <hotspot name="spot8" style="skin_hotspotstyle" ath="48.104" atv="-4.882" /> -->
+		<hotspot name="spot5_NhaBiaTienSy" style="skin_hotspotstyle_info" ath="48.118" atv="-3.958"
+		 ondown="draghotspot();" onhover="showInfo('Thông tin Nhà Bia Tiến Sỹ')"
+		  		onclick=" youtubeplayer_open('x-F7dw9V3Qw');"/>
+
+		<!-- <hotspot name="spot7" style="skin_hotspotstyle" ath="4.297" atv="-7.803" /> -->
+		<hotspot name="spot6_KhueVanCac" style="skin_hotspotstyle_info" ath="4.401" atv="-6.770" ondown="draghotspot();"
+		  onhover="showInfo('Thông tin Khuê Văn Các')"
+		  		onclick=" youtubeplayer_open('map4N9P5oTU');"/>
+		
+		
+
+	</scene>
+
+	<scene name="scene_2_1_NhaThaiHoc-San" title="Sân Nhà Thái Học" onstart="activatespot2(pin6,0);" thumburl="panos/2_1_NhaThaiHoc-San.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="11.921" vlookat="0.941" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2_1_NhaThaiHoc-San.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/2_1_NhaThaiHoc-San.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="9.533" atv="0.367" ondown="draghotspot();" linkedscene="scene_2_2_nhathaihoc" />
+		<hotspot name="spot2" style="skin_hotspotstyle_ani" ath="-169.560" atv="-2.911" ondown="draghotspot();" linkedscene="scene_1_7_khuevancac+nhabia" />
+		<hotspot name="spot3" style="hs_flycam" ath="-157.479" atv="-42.018" ondown="draghotspot();" linkedscene="scene_0002_equi" />
+		<!-- <hotspot name="spot5" style="skin_hotspotstyle" ath="10.153" atv="-16.194"  /> -->
+		<hotspot name="spot4" style="skin_hotspotstyle_info" ath="10.152" atv="-15.239" ondown="draghotspot();" 
+		onhover="showInfo('Thông tin Nhà Thái Học')"
+				onclick=" youtubeplayer_open('j-ELWEjiZlI');"/>
+		
+
+	</scene>
+
+	<scene name="scene_2_2_NhaThaiHoc" title="Nhà Thái Học" onstart="activatespot2(pin7,0);" thumburl="panos/2_2_NhaThaiHoc.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.000" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2_2_NhaThaiHoc.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/2_2_NhaThaiHoc.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="-2.925" atv="5.725" ondown="draghotspot();" linkedscene="scene_3_1_tuongchuvanan_t1" />
+		<hotspot name="spot2" style="skin_hotspotstyle_ani" ath="178.287" atv="3.964" ondown="draghotspot();" linkedscene="scene_2_1_nhathaihoc-san" />
+
+	</scene>
+
+	<scene name="scene_3_1_TuongChuVanAn_T1" title="Tượng Chu Văn An" onstart="activatespot2(pin8,30);" thumburl="panos/3_1_TuongChuVanAn_T1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-13.385" vlookat="1.359" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/3_1_TuongChuVanAn_T1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/3_1_TuongChuVanAn_T1.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="77.804" atv="7.823" ondown="draghotspot();" linkedscene="scene_3_2_cauthangdanhuong_t1" />
+		<hotspot name="spot2" style="skin_hotspotstyle_ani" ath="167.985" atv="10.521" ondown="draghotspot();" linkedscene="scene_2_2_nhathaihoc" />
+		<!-- <hotspot name="spot4" style="skin_hotspotstyle" ath="-8.520" atv="29.443"  /> -->
+		<hotspot name="spot3" style="skin_hotspotstyle_info" ath="-8.323" atv="30.815" ondown="draghotspot();" 
+		 onhover="showInfo('Thông tin Tượng Chu Văn An')" 
+				onclick=" youtubeplayer_open('RbNyOFcgx7k');"/>
+		
+
+	</scene>
+
+	<scene name="scene_3_2_Cauthangdanhuong_T1" title="Cầu thang dẫn hướng" onstart="activatespot2(pin9,0);" thumburl="panos/3_2_Cauthangdanhuong_T1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-0.824" vlookat="3.560" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/3_2_Cauthangdanhuong_T1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/3_2_Cauthangdanhuong_T1.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="5.422" atv="-23.473" ondown="draghotspot();" linkedscene="scene_3_3_tuong_lythanhtong_t2" />
+		<hotspot name="spot2" style="skin_hotspotstyle_ani" ath="-82.763" atv="5.810" ondown="draghotspot();" linkedscene="scene_3_1_tuongchuvanan_t1" />
+
+	</scene>
+
+	<scene name="scene_3_3_Tuong_LyThanhTong_T2" title="Tượng Lý Thánh Tông" onstart="activatespot2(pin10,0);" thumburl="panos/3_3_Tuong_LyThanhTong_T2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="7.634" vlookat="2.614" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/3_3_Tuong_LyThanhTong_T2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/3_3_Tuong_LyThanhTong_T2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle_ani" ath="109.162" atv="8.471" ondown="draghotspot();" linkedscene="scene_3_2_cauthangdanhuong_t1" />
+
+	</scene>
+
+
+</krpano>

@@ -1,0 +1,160 @@
+<krpano>
+    <sidemenu_settings
+        open_info ="false"
+        maps="false"
+        tab_minimap_x="40"
+        tab_minimap_y="230"
+        tab_info_x="40"
+        tab_info_y="180"
+        setting_width="10"
+        setting_height="40"
+        setting_width_close="-280"
+        minimap_width="200"
+        minimap_height="250"
+
+        minimap_full_height="1600"
+        minimap_fill_width="400"
+
+        mb_height = "700"
+        info_width="250"
+
+        minimap_x_open="280"
+        minimap_y_open="340"
+
+
+        minimap_full_x_open="900" 
+        minimap_full_y_open="430"
+        scale_full_minimap = "0.4"
+
+        mb_y_open="580"
+        info_x = "210"
+        info_y = "260"
+        info_x_close = "-140"
+        info_height="150"
+        scale_minimap = "1"
+        minimap_height_close="0"
+        bg_color_default = "#F9A21A"
+        bg_color_active = "0x14475a"
+        minimap_css="margin:0px; width:100%;"
+        menu_0_onover_color_bcg = "0x6dcfea"
+        menu_color_text="color:#c47c18;
+        font-weight:regular; font-size:18px; font-style:normal;
+        padding: 10px 20px;
+        margin-bottom:20px;
+        border: 2px solid #c47c18;
+        border-radius : 50px;"
+        menu_color_text_over="
+        background-color:#c47c18;
+        color :#fff;
+        font-weight:regular;
+        font-size:18px; font-style:normal;
+        padding: 10px 20px;
+        margin-bottom:20px;
+        border: 2px solid #c47c18;
+        border-radius : 50px;"
+    />
+
+    <sidemenu_settings devices="mobile|tablet"
+        tab_minimap_x="5"
+        tab_minimap_y="150"
+        tab_info_x="5"
+        tab_info_y="100"
+        setting_width="10"
+        setting_height="40"
+        setting_width_close="-280"
+        minimap_width="250"
+        minimap_height="250"
+        mb_height = "700"
+        info_width="150"
+        scale_minimap = "1"
+        minimap_x_open="280"
+        minimap_y_open="300"
+        mb_y_open="410"
+        info_x = "120"
+        info_y = "150"
+        info_x_close = "-140"    
+        info_height="80"
+        minimap_height_close="0"
+        menu_color_text="color:#c47c18;
+        font-weight:regular; font-size:10px; font-style:normal;
+        border: 2px solid #c47c18;
+        padding:4px;
+        border-radius : 50px;"
+        menu_color_text_over="
+        background-color:#c47c18;
+        color :#fff;
+        padding:4px;
+        border-radius : 50px;"
+    />
+
+    <action name="add_spin" >
+<!--        loadscene(get(scene[%1]), null, MERGE|KEEPVIEW|KEEPMOVING,BLEND(0.3));-->
+        copy(view.tx, style[%2].ox);
+        copy(view.ty, style[%2].oy);
+        copy(view.tz, style[%2].oz);
+
+        loadscene(%1, null, MERGE,BLEND(0.3));
+    </action>
+    <!--  Anton code START  -->
+    <action name="activatespot">
+        set(layer[radar].visible, false); set(layer[radar2].visible, false); set(layer[activespot2].visible, false); copy(layer[radar].x, layer[%1].x); copy(layer[radar].y, layer[%1].y); copy(layer[activespot].x, layer[%1].x); copy(layer[activespot].y, layer[%1].y); set(layer[radar].heading, %2); set(layer[radar].visible, true); set(layer[activespot].visible, true); if(map_status=='open', openfirstfloor();); set(active_flor,1);
+    </action>
+
+    <action name="activatespot2">
+        set(layer[radar].visible, false); set(layer[radar2].visible, false); set(layer[activespot].visible, false); copy(layer[radar2].x, layer[%1].x); copy(layer[radar2].y, layer[%1].y); copy(layer[activespot2].x, layer[%1].x); copy(layer[activespot2].y, layer[%1].y); set(layer[radar2].heading, %2); set(layer[radar2].visible, true); set(layer[activespot2].visible, true); if(map_status=='open',opensecondfloor();); set(active_flor,2);
+    </action>
+
+    <!--  close first floor plan  -->
+    <action name="closefirstfloor">
+        set(layer[first-floor].onclick,openfirstfloor); tween(layer[first-floor].x,-705,1,easeOutQuint); set(layer[first-floor-close].visible,false); set(layer[first-floor-open].visible,true); set(map_status,closed);
+    </action>
+
+    <!--  open first floor plan  -->
+    <action name="openfirstfloor">
+        set(layer[first-floor].onclick, closefirstfloor); set(layer[first-floor].align, righttop); tween(layer[first-floor].x,0,1,easeOutQuint); set(layer[first-floor-open].visible,false); set(layer[first-floor-close].visible,true); closesecondfloor(); set(layer[second-floor].zorder,20); set(layer[first-floor].zorder,0); set(map_status,open);
+    </action>
+
+    <!--  close second floor plan  -->
+    <action name="closesecondfloor">
+        set(layer[second-floor].onclick,opensecondfloor);
+        tween(layer[map2].x,get(sidemenu_settings.minimap_width_close),1,easeOutQuint); set(layer[second-floor-close].visible,false);
+        set(layer[second-floor-open].visible,true);
+        set(map_status,closed);
+    </action>
+
+    <!--  open second floor plan  -->
+    <action name="opensecondfloor">
+        tween(layer[map2].x,220,1,easeOutQuint);
+        set(layer[second-floor-open].visible,false);
+        set(layer[second-floor-close].visible,true);
+        closefirstfloor(); set(layer[second-floor].zorder,0); set(layer[first-floor].zorder,20); set(map_status,open);
+    </action>
+
+        <action name="open_tabmenu">
+        tween(layer[%1].x,%2,1,easeOutQuint);
+        set(layer[%1].visible,true);
+        set(layer[%4].visible,false);
+        set(layer[%5].visible,true);
+    </action>
+
+    <action name="close_tabmenu">
+        tween(layer[%1].x,%3,1,easeOutQuint);
+        set(layer[%4].visible,true);
+        set(layer[%5].visible,false);
+    </action>
+
+     	<action name="hide_info">
+		set(layer[tab_info].visible,false);
+	</action>
+
+    <action name="open_info">
+<!--
+        showlog();
+        trace(layer[tab_info].visible);
+-->
+        if(get(layer[tab_info].visible) == false,set(layer[tab_info].visible,true),set(layer[tab_info].visible,false));
+
+	</action>
+
+
+</krpano>
