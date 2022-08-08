@@ -18,7 +18,7 @@
 	       tooltip=""
 	       linkedscene=""
 	       linkedscene_lookat=""
-	       onclick="skin_hotspotstyle_click();"
+	       onclick="skin_hotspotstyle_click();activeScene();"
 	       onover="tween(scale,0.85);"
 	       onout="tween(scale,0.8);"
 	       onloaded="if(linkedscene AND skin_settings.tooltips_hotspots, copy(tooltip,scene[get(linkedscene)].title); loadstyle(skin_tooltips); );"
@@ -54,7 +54,7 @@
 	       tooltip=""
 	       linkedscene=""
 	       linkedscene_lookat=""
-	       onclick="skin_hotspotstyle_click();"
+	       onclick="skin_hotspotstyle_click();activeScene();"
 	       depth="1000"
 	       scale="1"
 	       onover="tween(scale,1.15);"
@@ -291,6 +291,29 @@
 		txtadd(crop,'0|',get(ypos),'|',get(framewidth),'|',get(frameheight));
 		delayedcall(0.05, if(loaded, hotspot_animate3() ) );
 	</action>
+    <action name="activeScene" >
+<!-- 
+                trace(get(linkedscene)); -->
+        activeScene_html(get(linkedscene));
+    </action>
+
+    <action name="activeScene_html" type="Javascript">
+    <![CDATA[
+     console.log(args[1]);
+     var elems = document.querySelectorAll(".active");
+      [].forEach.call(elems, function(el) {
+        el.classList.remove("active");
+      });
+ 
+    const elem = document.getElementById(args[1]);
+  
+     console.log(elem);
+    elem.classList.add("active");
+     
+
+  ]]>
+   </action>
+
     <!--  load the soundinterface plugin  -->
     <plugin name="soundinterface" url.flash="%SWFPATH%/plugins/soundinterface.swf" url.html5="%SWFPATH%/plugins/soundinterface.js" rootpath="" preload="true" keep="true"/>
  <!--  start playing the sound  -->

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $(".guide").hide();
+    // $(".guide").hide();
     $(".close").click(function(){
       $(".guide").hide();
     });
@@ -12,7 +12,7 @@ $(document).ready(function(){
   });
   // click video
   $(document).ready(function(){
-    $(".video").hide();
+    // $(".video").hide();
     $(".close").click(function(){
       $(".video").hide();
     });
@@ -25,7 +25,7 @@ $(document).ready(function(){
   });
   // click form
   $(document).ready(function(){
-    $(".form").hide();
+    // $(".form").hide();
     $(".close").click(function(){
       $(".form").hide();
     });
@@ -116,7 +116,7 @@ $(document).ready(function(){
       });
       // xu ly active khi click
     $(".item-thumbs").click(function(e){
-      var link_scene = $(this).attr('linkscene');
+      var link_scene = $(this).attr('id');
       console.log(link_scene);
      
       var elems = document.querySelectorAll(".active");

@@ -55,6 +55,7 @@ li{
     text-align: center;
     /* top: 32%; */
     background: #00000052;
+    display: none;
     
 }
 .guide img{
@@ -72,6 +73,12 @@ li{
     cursor: pointer;
 }
 /* xử lý video */
+.form{
+    display: none;
+}
+.video{
+    display: none;
+}
 .video, .form{
     top: 0;
     position: fixed;
@@ -156,7 +163,7 @@ li{
     margin-bottom: 0px;
     transition: all 500ms ease 0s;
     margin: auto;
-
+    color:#fff;
   
 }
 .icon_thumbs_bottom{
@@ -179,8 +186,10 @@ li{
     margin-bottom: 0px;
     transition: all 500ms ease 0s;
     margin: auto;
+    color:#fff;
   
 }
+
 .list-thumbs{
     background-color: rgba(0, 0, 0, 0.481);
     width: 100%;
@@ -219,12 +228,15 @@ li{
 }
 .content-thumb{
     position: absolute;
-    top: 10%;
-    margin: 0.5rem 0.5rem;
+    /* top: 10%; */
+    /* margin: 0.5rem 0.5rem; */
     padding: 0.2rem 0.7rem;
     /* width: 160px; */
-    /* background: #00000078; */
-    border-radius: 10px;
+    background: #00000078;
+    /* border-radius: 10px; */
+    bottom: 0;
+    width: 100%;
+    color:#fff;
     
  
 }
