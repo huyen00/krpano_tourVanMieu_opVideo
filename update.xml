@@ -22,6 +22,7 @@
 	       onover="tween(scale,0.85);"
 	       onout="tween(scale,0.8);"
 	       onloaded="if(linkedscene AND skin_settings.tooltips_hotspots, copy(tooltip,scene[get(linkedscene)].title); loadstyle(skin_tooltips); );"
+            onhover="get_scene_data"
 	       />
     <style name="hotspot_sprite_mascotte"
 	   	url="skin/hotspot_ani_white_64x64x20.png"
@@ -69,14 +70,16 @@
 	       tooltip=""
 	       linkedscene=""
 	       linkedscene_lookat=""
-	       onclick="skin_hotspotstyle_click();"
+	       onclick="skin_hotspotstyle_click();activeScene();"
 	       depth="1000"
 	       scale="1"
 	       onover="tween(scale,1.15);"
+           ondown="draghotspot();" 
 	       onout="tween(scale,1);"
 	       onloaded="hotspot_animate3();"
 		   crop="0|0|64|64"
 	   	framewidth="64" frameheight="64" frame="0" lastframe="22"
+         onhover="get_scene_data"
 		    
 	/>
 	<!-- <style name="hotspotstyle_circle" url="skin/hs1.png" scale="0.8" edge="top" distorted="true"
@@ -109,7 +112,7 @@
            <!-- skin_hotspotstyle_info -->
         <style
             name="skin_hotspotstyle_info"
-            url="skin/icon_info.png"
+            url="skin/info.png"
             edge="top"
             distorted="true"
             tooltip=""
@@ -117,10 +120,11 @@
             linkedscene_lookat=""
             onclick="skin_hotspotstyle_click();"
             depth="1000"
-            scale="0.03"
+            scale="0.45"
             rotation="90"
-            onover="tween(scale,0.04);"
-            onout="tween(scale,0.03);"
+            ondown="draghotspot();" 
+            onover="tween(scale,0.5);"
+            onout="tween(scale,0.45);"
             onloaded="skin_hotspotstyle_setup();"
         />
 <style
@@ -284,13 +288,30 @@
         onloaded="skin_hotspotstyle_setup();"
         onhover="get_scene_data"
 	/> 
-    
+    <style
+     name="show_hide_polygo"
+     fillalpha="0"
+      borderalpha="0"
+       onover="tween(fillalpha,0.6);
+         tween(borderalpha,0.6)"
+       onout="tween(fillalpha,0);
+         tween(borderalpha,0)"
+    />
+
+    <!-- <action name="show_polygo">
+		set(hotspot[hs1].fillalpha, 0.6);
+		set(hotspot[hs1].borderalpha, 0.6);
+	</action>
+	<action name="hide_polygo">
+		set(hotspot[hs1].fillalpha, 0);
+		set(hotspot[hs1].borderalpha, 0);
+	</action>
     <action name="hotspot_animate3">
 		inc(frame,1,get(lastframe),0);
 		mul(ypos,frame,frameheight);
 		txtadd(crop,'0|',get(ypos),'|',get(framewidth),'|',get(frameheight));
 		delayedcall(0.05, if(loaded, hotspot_animate3() ) );
-	</action>
+	</action> -->
     <action name="activeScene" >
 <!-- 
                 trace(get(linkedscene)); -->
@@ -309,11 +330,12 @@
   
      console.log(elem);
     elem.classList.add("active");
+  
      
 
   ]]>
    </action>
-
+   
     <!--  load the soundinterface plugin  -->
     <plugin name="soundinterface" url.flash="%SWFPATH%/plugins/soundinterface.swf" url.html5="%SWFPATH%/plugins/soundinterface.js" rootpath="" preload="true" keep="true"/>
  <!--  start playing the sound  -->

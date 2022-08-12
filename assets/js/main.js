@@ -10,6 +10,17 @@ $(document).ready(function(){
         $(".guide").show();
     });
   });
+  // click info
+  $(".close").click(function(){
+    $(".info").hide();
+  });
+  $(".info").click(function(){
+      $(".info").hide();
+  });
+  $("#icon_info").click(function(){
+      $(".info").show();
+  });
+
   // click video
   $(document).ready(function(){
     // $(".video").hide();
@@ -122,8 +133,10 @@ $(document).ready(function(){
       var elems = document.querySelectorAll(".active");
       [].forEach.call(elems, function(el) {
         el.classList.remove("active");
+        
       });
       $(this).addClass("active");
+   
       krpano.call("load_scene(" +link_scene + ")");
      
     });
@@ -193,7 +206,8 @@ $('.list-thumbs').slick({
         arrows: false,
         centerMode: true,
         centerPadding: '40px',
-        slidesToShow: 4
+        slidesToShow: 4,
+       
       }
     },
     {
@@ -202,7 +216,8 @@ $('.list-thumbs').slick({
         arrows: false,
         centerMode: true,
         centerPadding: '40px',
-        slidesToShow: 3
+        slidesToShow: 3,
+      
       }
     },
     {
@@ -248,3 +263,10 @@ $('.list-thumbs').slick({
 
 // document.getElementClassName("slick-prev").innerHTML = ">"
 
+
+$(document).ready(function(){
+  $('.list-thumbs').on('afterChange', function(event, slick, currentSlide){
+    $('.result').text('afterChange : ' + (currentSlide + 1));
+  });
+  $('.list-thumbs').slick();
+});

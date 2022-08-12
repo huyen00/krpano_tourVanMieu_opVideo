@@ -48,4 +48,38 @@
 	<hotspot name="spot2" url="hotspot.png" zoom="true"      scale="0.5" ath="0"   atv="+25" ondown="draghotspot();" />
 	<hotspot name="spot3" url="hotspot.png" distorted="true" scale="0.5" ath="+25" atv="+5"  ondown="draghotspot();" />
 
+<!-- dragg minimap -->
+	<action name="draglayer">
+		copy(drag_currentx, x);
+		copy(drag_currenty, y);
+		copy(drag_stagex, mouse.stagex);
+		copy(drag_stagey, mouse.stagey);
+		indexoftxt(align_contains_right, get(align), 'right');
+		indexoftxt(align_contains_bottom, get(align), 'bottom');
+		calc(drag_align_x, align_contains_right GE 0 ? -1 : +1);
+		calc(drag_align_y, align_contains_bottom GE 0 ? -1 : +1);
+		asyncloop(pressed,
+			calc(x, drag_currentx + (mouse.stagex - drag_stagex)*drag_align_x);
+			calc(y, drag_currenty + (mouse.stagey - drag_stagey)*drag_align_y);
+
+            set(x_html,null);
+            calc(x_html, 'layer name="' + name + '" x="' + x + '" y="' + y + '"');
+             showlog();
+            trace(x_html);
+		  );
+         
+	</action>
+    <action name="draglayer_vertically_within_parent">
+		copy(drag_currenty, y);
+		copy(drag_stagey, mouse.stagey);
+		calc(y_min, layer[get(parent)].pixelheight - pixelheight);
+		if(y_min LT 0,
+			asyncloop(pressed,
+				calc(y, drag_currenty + (mouse.stagey - drag_stagey));
+				clamp(y, get(y_min), 0);
+			  );
+		  );
+        
+	</action>
+
 </krpano>

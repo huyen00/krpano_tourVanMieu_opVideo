@@ -1,0 +1,61 @@
+<krpano>
+
+   
+
+	<!-- <action name= "pause_sound">
+		pausesound(bgsound);
+	</action>
+	<action name="resumesound">
+		resumesound(bgsound);
+	</action>
+	<action name="play_sound">
+		playsound(bgsound, %1, true, 0.8);
+	</action> -->
+	
+    <action name= "showInfo">
+		showtext([p]%1[/p],Target);
+	</action>
+	
+	<action name="load_scene">
+	
+		loadscene(%1);
+	</action>
+	<action name= "back_scene">
+		set(index_scene,get(scene[get(xml.scene)].index));
+		sub(index_scene,index_scene,1);
+		set(backscene_name, get(scene[get(index_scene)].name));
+		loadscene(backscene_name);
+	</action>
+	
+	<!-- <plugin  name = "soundinterface"
+         url = "%SWFPATH%plugins/soundinterface.swf"
+         alturl = "%SWFPATH%plgins/soundinterface.js"
+         preload = "true"
+         rootpath = "%SWFPATH%assets/voice/Voice.mp3"
+         volume = "1.0"
+         mute = "false" 
+        />
+ -->
+ <action name="hideallhotspots">
+
+	for( set(i, 0), i LT hotspot.count, inc(i),
+	set( hotspot[get(i)].alpha, 0);
+	set( hotspot[get(i)].visible, false););
+
+ 	set(skin_settings.state_hidden_hotspot,true);
+	
+</action>
+<action name="showallhotspot">
+	for( set(i, 0), i LT hotspot.count, inc(i),
+	set( hotspot[get(i)].alpha, 1);
+	set( hotspot[get(i)].visible, true););
+	set(skin_settings.state_hidden_hotspot,false);
+	
+	
+</action>
+<action name="loadscene_with_name">
+	loadscene(%1, null, MERGE, ZOOMBLEND(1,2)); 
+</action>
+<control keycodesin="" keycodesout="" />
+
+</krpano>

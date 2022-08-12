@@ -1,0 +1,544 @@
+﻿<krpano version="1.20.6" title="Virtual Tour">
+
+<include url="action_html.xml" />
+	 <include url="skin/vtourskin.xml" />
+    <include url="plugins/showtext.xml" />
+    <include url="option.xml" />
+	<include url="plugins/dragg/dragg.xml" />
+	  <include url="plugins/popup_blur.xml" />
+	  
+	  <include url="plugins/minimap.xml" />
+	  <!-- <include url="minimap.xml" /> -->
+	  <include url="plugins/youtube_player.xml" />
+	  
+	<include url="update.xml"/>
+	<include url="plugins/polygonal_hotspots_editor.xml" />
+	<!-- <include url="plugins/callout.xml" /> -->
+
+	
+
+
+ 
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings
+       maps="true"
+       maps_type="google"
+       maps_bing_api_key=""
+       maps_google_api_key=""
+       maps_zoombuttons="false"
+       maps_loadonfirstuse="true"
+       gyro="true"
+       gyro_keeplookingdirection="false"
+       webvr="true"
+       webvr_keeplookingdirection="true"
+       webvr_prev_next_hotspots="true"
+       autotour="false"
+       littleplanetintro="true"
+       followmousecontrol="false"
+       title="true"
+       thumbs="true"
+       thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+       thumbs_opened="false"
+       thumbs_text="false"
+       thumbs_dragging="true"
+       thumbs_onhoverscrolling="false"
+       thumbs_scrollbuttons="false"
+       thumbs_scrollindicator="false"
+       thumbs_loop="false"
+       tooltips_buttons="false"
+       tooltips_thumbs="false"
+       tooltips_hotspots="false"
+       tooltips_mapspots="false"
+       deeplinking="false"
+       loadscene_flags="MERGE"
+       loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+       loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+       loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+       loadingtext="loading..."
+       layout_width="100%"
+       layout_maxwidth="814"
+       controlbar_width="-24"
+       controlbar_height="40"
+       controlbar_offset="20"
+       controlbar_offset_closed="-40"
+       controlbar_overlap.no-fractionalscaling="10"
+       controlbar_overlap.fractionalscaling="0"
+       design_skin_images="vtourskin.png"
+       design_bgcolor="0x2D3E50"
+       design_bgalpha="0.8"
+       design_bgborder="0"
+       design_bgroundedge="1"
+       design_bgshadow="0 4 10 0x000000 0.3"
+       design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+       design_thumbborder_padding="2"
+       design_thumbborder_bgroundedge="0"
+       design_text_css="color:#FFFFFF; font-family:Arial;"
+       design_text_shadow="1"
+	   state_hidden_hotspot = "false"
+
+    />
+
+    <skin_settings
+		devices="mobile|tablet"
+	/>
+
+<!-- <callout key="U2FsdGVkX19iZSpSgcDptO+a9cay1TJ125oKGvQJBsinuiyiqx6XzwPQDklT02Q" size="10" 
+	color="0xffffff"
+	rotate="45"
+	distancepopup="5"   
+	min_fov="180" 
+	max_fov="0" 
+	line_lenght="100"
+	line_width="2" 
+	shape="round"
+	circle_active_width="50"
+	animation="center_screen" 
+	text_width="300"
+	callout_bg_border="0,0,0,2"
+	text_x="10"
+	css_title="color:#fff;font-size:25px;"
+	css_text="color:#fff;font-size:16px;text-shadow: 3px 3px 8px #000000;"
+	title_background="0xb50000"
+	text_background=""
+	title_padding="10"
+	text_padding="10 10 0 0"/> -->
+	<!--
+	    For an alternative skin design either change the <skin_settings> values
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+        <!-- playsound(bgsound, assets/bgsound.mp3, true, 0.8); -->
+      
+		set(layer[mapfull].visible,false);
+		set( layer[map2].visible, false);
+		
+	</action>
+
+	<!-- <action name="startup1" autorun="onstart">
+		if(scene_0008_equi === null OR !scene[get(scene_0008_equi)], copy(scene_0008_equi,scene[0].name); );
+		loadscene(get(scene_0008_equi), null, MERGE);
+		if(startactions !== null, startactions() );
+       
+	</action> -->
+	<!-- <control keycodesin="16,107" /> -->
+
+	
+    <action name= "showHotSpot">
+		showtext([img src=%1 height=120px width=220px][/img][p style="color="#FF00FF""]%2[/p],Target);
+	</action>
+
+	
+
+	<scene name="scene_1_flycam1" title="Toàn cảnh khu sản xuất" onstart="" thumburl="panos/1_flycam1.tiles/thumb.jpg" lat="21.24222222" lng="106.59026389" heading="0.0">
+
+		<view hlookat="141.090" vlookat="13.243" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/1_flycam1.tiles/preview.jpg" />
+
+		<image prealign="0|0.0|0">
+			<cube url="panos/1_flycam1.tiles/pano_%s.jpg" />
+		</image>
+
+		
+<hotspot name="hs3" style="show_hide_polygo"   onhover="showInfo('Khu Nguyên Liệu A')" html="HTML"  
+		onclick="popup('html', get(data[data_html_example_A].content), 600, 300, true);">
+    <point ath="73.12699073230726" atv="45.57081724315474" />
+    <point ath="75.08535366467044" atv="36.43877109141906" />
+    <point ath="99.79222333453558" atv="38.97699431414287" />
+    <point ath="107.59713517574608" atv="40.43246250335086" />
+    <point ath="130.53649209042874" atv="44.94398533490529" />
+    <point ath="144.71334970085692" atv="44.490349629548376" />
+    <point ath="166.42984745027843" atv="50.07345657721664" />
+    <point ath="-152.8229559711335" atv="59.47544028511599" />
+    <point ath="-153.08306020166128" atv="44.69253499047633" />
+    <point ath="-144.76093007047626" atv="42.55950049555085" />
+    <point ath="-122.57553604062858" atv="55.122883119348664" />
+    <point ath="-143.9164368989666" atv="63.428656316069045" />
+    <point ath="-108.8326162262932" atv="80.92990058947355" />
+    <point ath="-21.18043466078109" atv="77.59805860097684" />
+    <point ath="63.188013824544214" atv="66.01056988932051" />
+    <point ath="121.07871004905579" atv="67.4369822182221" />
+    <point ath="112.78990302979696" atv="61.13111748812006" />
+    <point ath="61.781577485586695" atv="53.74213869386855" />
+    <point ath="62.70103445425002" atv="48.67036035549823" />
+</hotspot>
+<hotspot name="hs2" style="show_hide_polygo" onhover="showInfo('Khu cây trồng lâu năm')" html="HTML"  
+		onclick="popup('html', get(data[data_html_example_caylaunam].content), 600, 300, true);">
+    <point ath="146.3376542241174" atv="42.450990343152945" />
+    <point ath="145.0573908982692" atv="39.21653888149514" />
+    <point ath="159.23255686955122" atv="37.9355131743921" />
+    <point ath="164.16222447438219" atv="41.93638275594725" />
+    <point ath="158.6204291398052" atv="44.01561616212144" />
+    <point ath="146.3602906965712" atv="42.65202806934165" />
+</hotspot>
+<hotspot name="hs4" style="show_hide_polygo" onhover="showInfo('Khu Nguyên Liệu B')"  html="HTML"  
+		onclick="popup('html', get(data[data_html_example_B].content), 600, 300, true);">
+    <point ath="142.19324031349396" atv="22.109612932768947" />
+    <point ath="136.05478388211066" atv="21.02714316137707" />
+    <point ath="145.956462707705" atv="18.080192210676053" />
+    <point ath="156.0438309731125" atv="22.699065788892035" />
+    <point ath="152.9789008666881" atv="26.472983625468395" />
+    <point ath="150.07489656514284" atv="27.557407149028265" />
+    <point ath="145.26531180135675" atv="27.110778113732508" />
+    <point ath="143.9654671540336" atv="22.388527189498102" />
+</hotspot>
+
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="150.433" atv="27.603"    linkedscene="scene_5_khusxcayduoclieu" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="136.032" atv="45.719" linkedscene="scene_3_nguyenlieua4" />
+		
+		
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="148.851" atv="18.993" linkedscene="scene_4_nguyenlieub6" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="156.716" atv="47.643" linkedscene="scene_2_nguyenlieua2" />
+
+		
+		
+		
+	</scene>
+
+	
+	<scene name="scene_2_nguyenlieua2" title="Khu nguyên liệu A1" onstart="" thumburl="panos/2_nguyenlieua2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2_nguyenlieua2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/2_nguyenlieua2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-6.557" atv="-7.167" linkedscene="scene_3_nguyenlieua4" />
+		<hotspot name="spot2" style="hs_flycam" ath="145.648" atv="-62.411" linkedscene="scene_1_flycam1" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-76.700" atv="-9.452" linkedscene="scene_1_flycam1" />
+
+	</scene>
+	<scene name="scene_3_nguyenlieua4" title="Khu nguyên liệu A2" onstart="" thumburl="panos/3_nguyenlieua4.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="26.535" vlookat="-19.572" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/3_nguyenlieua4.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/3_nguyenlieua4.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-34.129" atv="-26.932" linkedscene="scene_2_nguyenlieua2" />
+		<hotspot name="spot2" style="hs_flycam" ath="46.327" atv="-82.402" linkedscene="scene_1_flycam1" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="25.050" atv="-17.463" linkedscene="scene_1_flycam1" />
+
+	</scene>
+
+	<scene name="scene_4_nguyenlieub6" title="Khu nguyên liệu B1" onstart="" thumburl="panos/4_nguyenlieub6.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/4_nguyenlieub6.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/4_nguyenlieub6.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="hs_flycam" ath="-122.027" atv="-53.172" linkedscene="scene_1_flycam1" />
+
+	</scene>
+
+	
+
+	<scene name="scene_5_khusxcayduoclieu" title="Khu sản xuất cây Dược Liệu" onstart="" thumburl="panos/5_khusxcayduoclieu.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/5_khusxcayduoclieu.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/5_khusxcayduoclieu.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="hs2" style="show_hide_polygo" onhover="showInfo('Nhà thu mua')">
+    <point ath="-162.51053058086484" atv="3.837824902971356" />
+    <point ath="-167.42480713112315" atv="3.4553970977414137" />
+    <point ath="-167.32088315143642" atv="0.6978603403031237" />
+    <point ath="-160.91528293931674" atv="-0.3980592262442239" />
+    <point ath="-155.85879687447" atv="-4.399843378050609" />
+    <point ath="-149.9939639791235" atv="-4.731236268427948" />
+    <point ath="-149.4781647228266" atv="-10.694376070572433" />
+    <point ath="-134.59766918215084" atv="-13.081843851505866" />
+    <point ath="-131.27847034231613" atv="-7.959139736739523" />
+    <point ath="-130.98851898485333" atv="-4.768029467406069" />
+    <point ath="-124.86606968827095" atv="-4.009877591479873" />
+    <point ath="-124.49840268870287" atv="1.781361719565655" />
+    <point ath="-139.4551688625342" atv="4.070359818492757" />
+    <point ath="-149.166811444431" atv="2.3847358596321033" />
+    <point ath="-160.924958080152" atv="3.860063609948498" />
+</hotspot>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="4.383" atv="-4.992" linkedscene="scene_6_traloai1" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-35.650" atv="-6.095" linkedscene="scene_10_kho" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-84.924" atv="-5.654" linkedscene="scene_12_vuonuom2" />
+		<hotspot name="spot4" style="hs_flycam" ath="-170.463" atv="-39.391" linkedscene="scene_1_flycam1" />
+
+		
+
+	</scene>
+
+	
+	<scene name="scene_6_traloai1" title="Phòng trưng bày Dược Liệu" onstart="" thumburl="panos/6_traloai1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/6_traloai1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/6_traloai1.tiles/pano_%s.jpg" />
+		</image>
+		<!-- <hotspot name="hs2" style="show_hide_polygo"  onhover="showInfo('Trà Loại 1')">
+    <point ath="0.000" atv="0.000" />
+    <point ath="11.188451882382083" atv="25.93374422018512" />
+    <point ath="11.249503772933338" atv="14.61005014857914" />
+    <point ath="5.444769908106764" atv="14.670251298716925" />
+    <point ath="5.604376242527508" atv="8.848687681379028" />
+    <point ath="-18.43563397905183" atv="7.786207184237261" />
+    <point ath="-18.687231912165544" atv="2.565287326102549" />
+    <point ath="-31.11589474396044" atv="2.0953365706716016" />
+    <point ath="-31.10638037402265" atv="6.836752266662644" />
+    <point ath="-32.84893339055873" atv="6.734358928285756" />
+    <point ath="-32.84538088320346" atv="11.347423921292515" />
+    <point ath="-33.99706564996774" atv="12.113615846846693" />
+</hotspot>
+<hotspot name="hs3" style="show_hide_polygo" onhover="showInfo('Trà Loại 2')">
+    <point ath="0.000" atv="0.000" />
+    <point ath="-58.41955028388492" atv="12.77923131474177" />
+    <point ath="-55.35319303129495" atv="11.725997485783346" />
+    <point ath="-51.92914624685426" atv="13.463100489991644" />
+    <point ath="-47.77514773992658" atv="12.74064515644426" />
+    <point ath="-49.491093479531685" atv="10.696143677531467" />
+    <point ath="-53.37549107257854" atv="9.562841000515983" />
+    <point ath="-56.64281367755268" atv="7.459171328990102" />
+    <point ath="-59.281698932590814" atv="2.094730616196969" />
+    <point ath="-62.168707954803324" atv="2.054770123329173" />
+    <point ath="-66.47150978357735" atv="7.244851853350827" />
+</hotspot>
+<hotspot name="hs4" style="show_hide_polygo" onhover="showInfo('Trà Loại 3')">
+    <point ath="0.000" atv="0.000" />
+    <point ath="-68.93592842986664" atv="7.288006836325234" />
+    <point ath="-67.05519852908782" atv="6.778305251204154" />
+    <point ath="-67.00166919127412" atv="4.449582541491826" />
+    <point ath="-69.55671937712174" atv="4.392838264562374" />
+    <point ath="-69.40991358864221" atv="2.4554253596299342" />
+    <point ath="-70.7132032661296" atv="2.4374759109335242" />
+    <point ath="-71.6187863973957" atv="3.0009532440968782" />
+    <point ath="-71.58538147082896" atv="4.436948061570921" />
+    <point ath="-73.66265837690037" atv="4.095107073027252" />
+</hotspot>
+<hotspot name="hs5" style="show_hide_polygo" onhover="showInfo('Lá trà sấy khô')">
+    <point ath="0.000" atv="0.000" />
+    <point ath="-83.20557078720844" atv="10.485300222208725" />
+    <point ath="-78.46239355831278" atv="8.737525872769517" />
+    <point ath="-79.44499135896854" atv="1.3738888831984213" />
+    <point ath="-92.60389631635064" atv="1.8979787497563243" />
+</hotspot> -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-38.644" atv="-1.342" linkedscene="scene_8_duoclieukhac" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-86.466" atv="13.875" linkedscene="scene_7_traloai2" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="99.642" atv="2.437" onhover="showInfo('Khu vệ sinh của khách')"  />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="178.520" atv="17.373" linkedscene="scene_5_khusxcayduoclieu" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-88.294" atv="-5.705" linkedscene="scene_10_kho" />
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="102.463" atv="14.616" linkedscene="scene_9_bantiepkhach" />
+		<hotspot name="spot7" style="skin_hotspotstyle_info" ath="-12.038" atv="12.505" html="HTML" onhover="showInfo('Thông tin trà loại 1')" 
+		onclick="popup('html', get(data[data_html_example].content), 600, 300, true);"/>
+		<hotspot name="spot8" style="skin_hotspotstyle_info" ath="-56.625" atv="5.644"  html="HTML" onhover="showInfo('Thông tin trà loại 2')" 
+		onclick="popup('html', get(data[data_html_example2].content), 600, 300, true);"/>
+		<hotspot name="spot9" style="skin_hotspotstyle_info" ath="-73.224" atv="0.246" html="HTML" onhover="showInfo('Thông tin trà loại 3')" 
+		onclick="popup('html', get(data[data_html_example3].content), 600, 300, true);"/>
+
+		
+
+	</scene>
+
+	
+	<scene name="scene_7_traloai2" title="Khu trưng bày Trà" onstart="" thumburl="panos/7_traloai2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/7_traloai2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/7_traloai2.tiles/pano_%s.jpg" />
+		</image>
+		<!-- <hotspot name="hs2" style="show_hide_polygo" onhover="showInfo('Trà Loại 1')">
+    <point ath="0.000" atv="0.000" />
+    <point ath="69.73935832320052" atv="17.14515094485622" />
+    <point ath="80.85105762779403" atv="12.635128937761035" />
+    <point ath="80.56075135530921" atv="8.017203960700527" />
+    <point ath="79.54064704657037" atv="8.092280480084899" />
+    <point ath="79.3521239280002" atv="5.930712012197469" />
+    <point ath="74.03915511139564" atv="6.45932837470571" />
+    <point ath="73.99435789566229" atv="3.6357271799871493" />
+    <point ath="68.49070080045544" atv="3.911988821748952" />
+    <point ath="68.45145486326396" atv="6.723847168281593" />
+    <point ath="65.23204602514386" atv="6.526144791778642" />
+    <point ath="64.87030865999333" atv="9.493923932793782" />
+    <point ath="64.16455719246522" atv="9.56133809422477" />
+    <point ath="63.73531178167997" atv="12.239096244274684" />
+    <point ath="62.831167514716924" atv="12.251876861777879" />
+</hotspot>
+<hotspot name="hs3" style="show_hide_polygo" onhover="showInfo('Trà Loại 2')">
+    <point ath="0.000" atv="0.000" />
+    <point ath="40.006962702512965" atv="25.53350148993263" />
+    <point ath="39.16845733412123" atv="16.568527215605684" />
+    <point ath="25.800747112449017" atv="16.36116255550919" />
+    <point ath="25.882836532884312" atv="18.168434007744363" />
+    <point ath="17.2200618530714" atv="18.621727166602227" />
+    <point ath="17.35635781648614" atv="14.69820706571201" />
+    <point ath="17.103811934128828" atv="13.290928221380005" />
+    <point ath="10.016005026429639" atv="14.049309700178453" />
+    <point ath="9.984367576606871" atv="18.227328798332483" />
+    <point ath="8.431651435773517" atv="22.269751015511325" />
+    <point ath="-1.1276076961714807" atv="20.820860291491783" />
+    <point ath="-2.1792605825215787" atv="22.09809400016421" />
+</hotspot>
+<hotspot name="hs4" style="show_hide_polygo" onhover="showInfo('Trà Loại 3')">
+    <point ath="0.000" atv="0.000" />
+    <point ath="-26.501962679598876" atv="19.440019220472113" />
+    <point ath="-22.742575410086147" atv="17.13166436970252" />
+    <point ath="-23.119722293483846" atv="12.551631303018802" />
+    <point ath="-28.550622074337184" atv="11.521853839293556" />
+    <point ath="-28.585855152217505" atv="7.240401196585907" />
+    <point ath="-33.97458850470889" atv="7.177979984487757" />
+    <point ath="-36.163236795949615" atv="8.925947864255164" />
+    <point ath="-38.65873583196958" atv="8.497616079728692" />
+    <point ath="-46.05038129315972" atv="10.165724373190892" />
+</hotspot>
+<hotspot name="hs5" style="show_hide_polygo" onhover="showInfo('Lá trà sấy khô')">
+    <point ath="0.000" atv="0.000" />
+    <point ath="-67.51149763258928" atv="21.333148257876413" />
+    <point ath="-60.68872800834919" atv="17.584610549857203" />
+    <point ath="-59.239685118573334" atv="14.050556450367743" />
+    <point ath="-62.6317125712132" atv="1.3891575629599549" />
+    <point ath="-83.15390709415334" atv="3.482210286056231" />
+</hotspot> -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="102.320" atv="23.686" linkedscene="scene_6_traloai1" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="109.317" atv="2.539" onhover="showInfo('Khu vệ sinh của khách')" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="8.566" atv="6.214" linkedscene="scene_8_duoclieukhac" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-173.189" atv="2.298" linkedscene="scene_5_khusxcayduoclieu" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-74.353" atv="-5.018" linkedscene="scene_10_kho" />
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="108.453" atv="9.560" linkedscene="scene_9_bantiepkhach" />
+		<hotspot name="spot7" style="skin_hotspotstyle_info" ath="76.837" atv="8.399"  html="HTML" onhover="showInfo('Thông tin trà loại 1')" 
+		onclick="popup('html', get(data[data_html_example].content), 600, 300, true);"/>
+		<hotspot name="spot8" style="skin_hotspotstyle_info"  ath="21.507" atv="19.566"   html="HTML" onhover="showInfo('Thông tin trà loại 2')" 
+		onclick="popup('html', get(data[data_html_example2].content), 600, 300, true);"/>
+		<hotspot name="spot9" style="skin_hotspotstyle_info" ath="-37.466" atv="10.119" html="HTML" onhover="showInfo('Thông tin trà loại 3')" 
+		onclick="popup('html', get(data[data_html_example3].content), 600, 300, true);"/>
+
+		
+
+	</scene>
+
+	
+	<scene name="scene_8_duoclieukhac" title="Khu trưng bày dược liệu khác" onstart="" thumburl="panos/8_duoclieukhac.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/8_duoclieukhac.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/8_duoclieukhac.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="94.039" atv="7.952" linkedscene="scene_7_traloai2" />
+		<hotspot name="spot2" style="skin_hotspotstyle_info" ath="8.184" atv="-9.647"  />
+
+	</scene>
+
+	<scene name="scene_9_bantiepkhach" title="Bàn tiếp khách" onstart="" thumburl="panos/9_bantiepkhach.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-183.203" vlookat="-1.368" fovtype="MFOV" fov="131.539" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/9_bantiepkhach.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/9_bantiepkhach.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="hs2" style="show_hide_polygo" onhover="showInfo('Nhà kho')" html="HTML"  
+		onclick="popup('html', get(data[data_html_example_kho].content), 600, 300, true);">
+    <point ath="-165.44138738643284" atv="-23.931419117790423" />
+    <point ath="-164.09614462165422" atv="12.290929745526824" />
+    <point ath="-159.32437028411266" atv="12.114679961494662" />
+    <point ath="-158.19476048283576" atv="18.615306517978134" />
+    <point ath="-146.7828661470058" atv="16.468096626302994" />
+    <point ath="-148.2423954277928" atv="10.04378952499114" />
+    <point ath="-131.81547502532504" atv="7.174362026816726" />
+    <point ath="-133.15910821588338" atv="-17.618267739819984" />
+    <point ath="-164.096469349983" atv="-25.227897657435797" />
+</hotspot>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="86.611" atv="11.612" linkedscene="scene_6_traloai1" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-88.162" atv="2.563" onhover="showInfo('Khu vệ sinh của khách')" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="88.151" atv="-3.428" linkedscene="scene_10_kho" />
+
+	</scene>
+	
+
+	
+
+	<scene name="scene_10_kho" title="Kho sản xuất" onstart="" thumburl="panos/10_kho.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-49.130" vlookat="11.224" fovtype="MFOV" fov="109.337" maxpixelzoom="2.0"  limitview="range"
+		fovmin="calc:booth_setting ? calc(booth_setting.fovmin) : 70"
+        fovmax="calc:booth_setting ? calc(booth_setting.fovmax) : 140"
+		hlookatmin="calc:booth_setting ? calc(booth_setting.hlookatmin) : -140"
+        hlookatmax="calc:booth_setting ? calc(booth_setting.hlookatmax) : +120"
+        vlookatmin="calc:booth_setting ? calc(booth_setting.vlookatmin) : -180"
+        vlookatmax="calc:booth_setting ? calc(booth_setting.vlookatmax) : +180" 
+		/>
+
+		<preview url="panos/10_kho.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/10_kho.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-1.720" atv="0.017" linkedscene="scene_11_vuonuom1" />
+		<hotspot name="spot2" style="skin_hotspotstyle_info" ath="-84.847" atv="-2.288"   html="HTML" onhover="showInfo('Thông tin về quy trình sản xuất')" 
+		onclick="popup('html', get(data[data_html_example_sx].content), 600, 300, true);"/>
+		
+
+	</scene>
+
+	<scene name="scene_11_vuonuom1" title="Vườn Ươm 01" onstart="" thumburl="panos/11_vuonuom1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="137.280" vlookat="6.264" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/11_vuonuom1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/11_vuonuom1.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="56.154" atv="5.303" linkedscene="scene_10_kho" />
+		
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="158.283" atv="0.210" linkedscene="scene_12_vuonuom2" />
+
+	</scene>
+	<scene name="scene_12_vuonuom2" title="Vườn Ươm 02" onstart="" thumburl="panos/12_vuonuom2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/12_vuonuom2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/12_vuonuom2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-17.416" atv="-3.222" linkedscene="scene_11_vuonuom1" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="97.175" atv="2.004" linkedscene="scene_5_khusxcayduoclieu" />
+	
+	</scene>
+	
+
+	
+
+	
+	
+</krpano>
+

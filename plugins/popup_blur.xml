@@ -184,28 +184,149 @@
 
 		<div style="padding:10px; color:black ">
 
-			<h2 >Giới thiệu Văn Miếu - Quốc Tử Giám</h2>
+			<h2 >Thông Tin về  Trà Loại 1</h2>
 			<hr style="border:0;border-top:1px solid white;">
-			<span>Văn Miếu - Quốc Tử Giám là quần thể di tích đa
-dạng và phong phú hàng đầu của thành phố Hà Nội, nằm ở phía
-Nam kinh thành Thăng Long thời nhà Lý. Bốn mặt đều là phố.
-Nơi đây thờ Khổng Tử, các bậc hiền triết của Nho giáo và Tư
-nghiệp Quốc Tử Giám Chu Văn An, và là trường Quốc học cao
-cấp đầu tiên của Việt Nam, với hơn 700 năm hoạt động, đào tạo
-nhiều nhân tài cho đất nước.
-</span>
-			<!-- <ul>
-				<li>With support for browser-based-scrolling by mouse-wheel, scroll-bars and touch-controls.</li>
-				<li>Fully integrated into krpano as &lt;layer&gt; container element.</li>
-			</ul>
-			Here a normal <a href="https://krpano.com" target="_blank" style="color:#FFFFFF;">link</a> for testing browser events.<br>
-			Here a <span style="text-decoration:underline;cursor:pointer;" onclick="(document.getElementById(window.activekrpanowindow) || window.activekrpanowindow).call('tween(layer[popup].x,calc(layer[popup].x LT 200 ? 200 : 0));');" style="color:#FFFFFF;">link</span> for testing the krpano JS API.<br>
+			<span>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example2"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Thông Tin về  Trà Loại 2</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example3"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Thông Tin về  Trà Loại 3</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example_kho"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Thông Tin Nhà Kho</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example_A"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Thông Tin Khu Nguyên Liệu A</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			Là khu nguyên liệu đã thu hoạch ổn định (3-5 năm tuổi, ngoài ra có các khu vực đang phát triển cây con độ tuổi 1,5 - 2,5 năm tuổi)
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example_B"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Thông Tin Khu Nguyên Liệu B</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example_caylaunam"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Đặc Điểm Của Cây Trông Trồng Lâu Năm</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example_sx"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Quy Trình sản xuất Trà</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example_A1"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Nguyên Liệu A1</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			<b>Tên cây trà: </b>
 			<br>
-			And here some text to scroll:<br>
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
+			<b>Thời gian trồng: </b>
 			<br>
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
-			<br> -->
+			<b>Đặc điểm, công dụng của cây: </b>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example_A2"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Nguyên Liệu A1</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			<span>
+			<b>Tên cây trà: </b>
+			<b>Thời gian trồng: </b>
+			<b>Đặc điểm, công dụng của cây: </b>
+			</span>
+			
+
+		</div>
+
+	]]></data>
+	<data name="data_html_example_duoclieu"><![CDATA[
+
+		<div style="padding:10px; color:black ">
+
+			<h2 >Những Dược Liệu khác được trưng bày</h2>
+			<hr style="border:0;border-top:1px solid white;">
+			
+			
 
 		</div>
 
